@@ -33,7 +33,8 @@ void MainWindow::handleSockData(void *obj) {
      ui->someVLayout->addWidget(widget);
      
      // check the thread id
-     const bool isGuiThread = QThread::currentThread() == QCoreApplication::instance()->thread();
+     const bool isGuiThread = QThread::currentThread() ==
+                                    QCoreApplication::instance()->thread();
      qWarning() << "isGuiThread: " << isGuiThread; // true
   });
 }
@@ -46,7 +47,8 @@ void MainWindow::handleSockData(void *obj{
 }
 
 void somefunc() {
-  const bool isGuiThread = QThread::currentThread() == QCoreApplication::instance()->thread();
+  const bool isGuiThread = QThread::currentThread() ==
+                                    QCoreApplication::instance()->thread();
   qWarning() << "isGuiThread: " << isGuiThread; // true
 }
 
@@ -58,7 +60,8 @@ void MainWindow::on_action1_triggered() {
   newThread->start();
 
   q_dispatch_async(newThread, []() {
-    const bool isGuiThread = QThread::currentThread() == QCoreApplication::instance()->thread();
+    const bool isGuiThread = QThread::currentThread() ==
+                                    QCoreApplication::instance()->thread();
     qWarning() << "isGuiThread: " << isGuiThread; // false
   });
 }
