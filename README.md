@@ -67,4 +67,12 @@ void MainWindow::on_action1_triggered() {
 }
 ```
 
+Enabling C++11 Compiler Support: Add these lines to your .pro file
+
+```
+CONFIG += c++11
+QMAKE_CXXFLAGS += -std=c++11 -stdlib=libc++ -mmacosx-version-min=10.7
+LIBS += -stdlib=libc++ -mmacosx-version-min=10.7
+```
+
 ###Enjoy!
