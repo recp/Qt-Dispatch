@@ -24,7 +24,7 @@ SAMPLE USAGE
 
 // Usage 1: Using with lambdas
 
-// This function called on non-ui/background thread.
+// This function called from non-ui/background thread.
 void MainWindow::handleSockData(void *obj) {
   // This usage requires C++11 
   q_dispatch_async_main([&]() {
