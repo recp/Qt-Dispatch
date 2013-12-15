@@ -16,16 +16,16 @@
 
 typedef std::function<void()> fnBlock;
 
-class dummyObj : public QObject
+class workerClass : public QObject
 {
   Q_OBJECT
 
 public:
-  dummyObj(QThread *thread) {
+  workerClass(QThread *thread) {
     moveToThread(thread);
   }
 public slots:
-  void doSomethings(fnBlock block) {
+  void doWork(fnBlock block) {
     block();
   }
 };
@@ -34,9 +34,9 @@ static void q_dispatch_async_main(fnBlock block) {
   qRegisterMetaType<fnBlock>("fnBlock");
 
   QThread *mainThread = QCoreApplication::instance()->thread();
-  dummyObj *worker = new dummyObj(mainThread);
+  workerClass *worker = new workerClass(mainThread);
   QMetaObject::invokeMethod(worker,
-                            "doSomethings",
+                            "doWork",
                             Qt::QueuedConnection,
                             Q_ARG(fnBlock, block)
                            );
@@ -46,9 +46,9 @@ static void q_dispatch_async_main(fnBlock block) {
 static void q_dispatch_async(QThread* thread, fnBlock block) {
   qRegisterMetaType<fnBlock>("fnBlock");
 
-  dummyObj *worker = new dummyObj(thread);
+  workerClass *worker = new workerClass(thread);
   QMetaObject::invokeMethod(worker,
-                            "doSomethings",
+                            "doWork",
                             Qt::QueuedConnection,
                             Q_ARG(fnBlock, block));
 }
